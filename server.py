@@ -102,6 +102,7 @@ def plotGraph():
 
             # fetch scada sem data from db via the repository instance of ith state
             dfData_gInd, errorPercInd = plotScadaSemDataRepo.plotScadaSemData(startDate, endDate, stateName)
+            # print(dfData_gInd)
             state= stateNameData(stateName)
             stateList.append(state)
             dfData_g.append(dfData_gInd)

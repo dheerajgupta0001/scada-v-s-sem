@@ -124,7 +124,8 @@ def fetchIsgsScadaSummaryForDate( scadaIsgsFolderPath: str, targetDt: dt.datetim
 
     excelDf = excelDf.loc[:, ["Timestamp", column]]
     # excelDf['Timestamp'] = pd.to_datetime(excelDf["Timestamp"],dayfirst=True)
-    # excelDf['Timestamp'] = excelDf['Timestamp'].apply(lambda x: dt.datetime.strftime(x, '%Y-%d-%m %H:%M:%S'))
+    excelDf['Timestamp'] = pd.to_datetime(excelDf["Timestamp"],dayfirst=True)
+    excelDf['Timestamp'] = pd.to_datetime(excelDf["Timestamp"],format="%d-%m-%Y %H:%M:S")
     excelDf[column]= excelDf[[column]].div(4, axis=0)
 
     scadaData = excelDf[column].tolist()

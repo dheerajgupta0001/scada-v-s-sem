@@ -69,6 +69,6 @@ class PlotScadaSemData():
         errorPerc = round((errorSum/meterDataSum)*100, 2)
         # convert dataframe to list of dictionaries
         resRecords = data.to_dict(orient='list')
-        # print(resRecords)
+        print(resRecords)
 
         return resRecords, errorPerc
