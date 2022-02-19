@@ -15,17 +15,17 @@ def fetchIsgsScadaSummaryForDate( scadaIsgsFolderPath: str, targetDt: dt.datetim
     """
     # sample excel filename - PMU_availability_Report_05_08_2020.xlsx
     fileDateStr = dt.datetime.strftime(targetDt, '%d_%m_%Y')
-    targetFilename = 'GEN_SCADA_SEM_{0}.xlsx'.format(fileDateStr)
+    targetFilename = 'GEN_SCADA_SEM_{0}.csv'.format(fileDateStr)
     targetFilePath = os.path.join( scadaIsgsFolderPath, targetFilename)
     # print(targetFilePath)
 
     # check if csv file is present
     if not os.path.isfile(targetFilePath):
-        print("ISGS Scada Excel file for date {0} is not present".format(targetDt))
+        print("ISGS Scada csv file for date {0} is not present".format(targetDt))
         return []
 
     # read pmu excel 
-    excelDf = pd.read_excel(targetFilePath, skiprows=2)
+    excelDf = pd.read_csv(targetFilePath, skiprows=2, nrows=96)
     # print("scada Data")
     # print(excelDf)
     # print(isgsName)

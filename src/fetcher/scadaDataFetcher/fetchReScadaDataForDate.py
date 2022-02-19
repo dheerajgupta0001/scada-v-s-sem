@@ -16,7 +16,7 @@ def fetchReScadaSummaryForDate( scadaReFolderPath: str, targetDt: dt.datetime, r
     """
     # sample excel filename - PMU_availability_Report_05_08_2020.xlsx
     fileDateStr = dt.datetime.strftime(targetDt, '%d_%m_%Y')
-    targetFilename = 'RE_SCADASEM_{0}.xlsx'.format(fileDateStr)
+    targetFilename = 'RE_SCADASEM_{0}.csv'.format(fileDateStr)
     targetFilePath = os.path.join( scadaReFolderPath, targetFilename)
     print(targetFilePath)
 
@@ -26,7 +26,7 @@ def fetchReScadaSummaryForDate( scadaReFolderPath: str, targetDt: dt.datetime, r
         return []
 
     # read pmu excel 
-    excelDf = pd.read_excel(targetFilePath, skiprows=2)
+    excelDf = pd.read_csv(targetFilePath, skiprows=2, nrows=96)
     # print("scada Data")
     if reName == "OS-91":
         column = "Ostro_Wind"
