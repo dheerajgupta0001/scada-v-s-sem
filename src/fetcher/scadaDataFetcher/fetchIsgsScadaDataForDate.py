@@ -15,17 +15,17 @@ def fetchIsgsScadaSummaryForDate( scadaIsgsFolderPath: str, targetDt: dt.datetim
     """
     # sample excel filename - PMU_availability_Report_05_08_2020.xlsx
     fileDateStr = dt.datetime.strftime(targetDt, '%d_%m_%Y')
-    targetFilename = 'GEN_SCADA_SEM_{0}.xlsx'.format(fileDateStr)
+    targetFilename = 'GEN_SCADA_SEM_{0}.csv'.format(fileDateStr)
     targetFilePath = os.path.join( scadaIsgsFolderPath, targetFilename)
     # print(targetFilePath)
 
     # check if csv file is present
     if not os.path.isfile(targetFilePath):
-        print("ISGS Scada Excel file for date {0} is not present".format(targetDt))
+        print("ISGS Scada csv file for date {0} is not present".format(targetDt))
         return []
 
     # read pmu excel 
-    excelDf = pd.read_excel(targetFilePath, skiprows=2)
+    excelDf = pd.read_csv(targetFilePath, skiprows=2, nrows=96)
     # print("scada Data")
     # print(excelDf)
     # print(isgsName)
@@ -124,7 +124,8 @@ def fetchIsgsScadaSummaryForDate( scadaIsgsFolderPath: str, targetDt: dt.datetim
 
     excelDf = excelDf.loc[:, ["Timestamp", column]]
     # excelDf['Timestamp'] = pd.to_datetime(excelDf["Timestamp"],dayfirst=True)
-    # excelDf['Timestamp'] = excelDf['Timestamp'].apply(lambda x: dt.datetime.strftime(x, '%Y-%d-%m %H:%M:%S'))
+    excelDf['Timestamp'] = pd.to_datetime(excelDf["Timestamp"],dayfirst=True)
+    excelDf['Timestamp'] = pd.to_datetime(excelDf["Timestamp"],format="%d-%m-%Y %H:%M:S")
     excelDf[column]= excelDf[[column]].div(4, axis=0)
 
     scadaData = excelDf[column].tolist()
