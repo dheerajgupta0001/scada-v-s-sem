@@ -80,6 +80,10 @@ def fetchReSemSummaryForDate(semReFolderPath: str, targetDt: dt.datetime, reName
     elif reName == "GH-91":
         excelDf = excelDf.iloc[:, [0,27]]
         excelDf.rename(columns = {0: 'Timestamp', 27:'semData'}, inplace = True)
+        
+    elif reName == "AV-91":
+        excelDf = excelDf.iloc[:, [0,32]]
+        excelDf.rename(columns = {0: 'Timestamp', 32:'semData'}, inplace = True)
 
     elif reName == "EG-91":
         excelDf = excelDf.iloc[:, [0,5]]
