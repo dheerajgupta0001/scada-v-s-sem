@@ -59,8 +59,8 @@ def testFetchSemSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, s
         excelDf = excelDf.iloc[:, [0,32]]
         excelDf.rename(columns = {0: 'Timestamp', 32:'semData'}, inplace = True)
     elif stateName == "MP2":
-        excelDf = excelDf.iloc[:, [0,30]]
-        excelDf.rename(columns = {0: 'Timestamp', 30:'semData'}, inplace = True)
+        excelDf = excelDf.iloc[:, [0,31]]
+        excelDf.rename(columns = {0: 'Timestamp', 31:'semData'}, inplace = True)
     elif stateName == "GU2":
         excelDf = excelDf.iloc[:, [0,32]]
         excelDf.rename(columns = {0: 'Timestamp', 32:'semData'}, inplace = True)
