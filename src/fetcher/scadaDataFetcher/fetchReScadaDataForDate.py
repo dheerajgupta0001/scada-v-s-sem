@@ -18,7 +18,7 @@ def fetchReScadaSummaryForDate( scadaReFolderPath: str, targetDt: dt.datetime, r
     fileDateStr = dt.datetime.strftime(targetDt, '%d_%m_%Y')
     targetFilename = 'RE_SCADASEM_{0}.csv'.format(fileDateStr)
     targetFilePath = os.path.join( scadaReFolderPath, targetFilename)
-    print(targetFilePath)
+    # print(targetFilePath)
 
     # check if csv file is present
     if not os.path.isfile(targetFilePath):
@@ -57,7 +57,13 @@ def fetchReScadaSummaryForDate( scadaReFolderPath: str, targetDt: dt.datetime, r
     elif reName == "TP-91":
         column = "Tprel_Solar"
     elif reName == "AV-91":
-        column = "Avikiran"
+        column = "Avikiran_Solar"
+    elif reName == "KR-91":
+        column = "KAWAS_Solar "
+    elif reName == "GS-91":
+        column = "GSECL_Solar "
+    elif reName == "JM-91":
+        column = "Powerica_Wind"
     excelDf = excelDf.loc[:, ["Timestamp", column]]
     # excelDf['Timestamp'] = pd.to_datetime(excelDf["Timestamp"],format="%Y-%m-%d %H:%M:S")
     excelDf['Timestamp'] = pd.to_datetime(excelDf["Timestamp"],dayfirst=True)
