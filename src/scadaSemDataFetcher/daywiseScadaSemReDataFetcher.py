@@ -1,5 +1,6 @@
 #from src.fetchers.dayPmuAvailabilitySummaryFetcher import fetchPmuAvailabilitySummaryForDate
 import datetime as dt
+from os import rename
 import pandas as pd
 import matplotlib.pyplot as plt
 from typing import List
@@ -31,6 +32,7 @@ def fetchScadaSemReRawData(scadaReFolderPath: str, semReFolderPath: str, startDa
     times = []
     while currDate <= reqEndDt:
         # print("sem data processing")
+        print(reName)
         dailySemReData = fetchReSemSummaryForDate(semReFolderPath, currDate,  reName)
         # print("sem file {}".format(semReFolderPath))
         # print(len(semData))

@@ -19,8 +19,15 @@ def fetchReSemSummaryForDate(semReFolderPath: str, targetDt: dt.datetime, reName
     targetFilename = '{0}.{1}'.format(fileDateStr, 'IN7')
     if reName in ["EG-91", "GP-91", "TP-91"]:
         targetFilename = '{0}.{1}'.format(fileDateStr, 'RD1')
+        
+    if reName == "KR-91":
+        targetFilename = '{0}.{1}'.format(fileDateStr, 'KR1')
+    if reName == "GS-91":
+        targetFilename = '{0}.{1}'.format(fileDateStr, 'RD1')
+    if reName == "JM-91":
+        targetFilename = '{0}.{1}'.format(fileDateStr, 'PW1')
     targetFilePath = os.path.join(semReFolderPath, targetFilename)
-    print(targetFilePath)
+    # print(targetFilePath)
 
     # check if excel file is present
     if not os.path.isfile(targetFilePath):
@@ -94,6 +101,14 @@ def fetchReSemSummaryForDate(semReFolderPath: str, targetDt: dt.datetime, reName
     elif reName == "TP-91":
         excelDf = excelDf.iloc[:, [0,7]]
         excelDf.rename(columns = {0: 'Timestamp', 7:'semData'}, inplace = True)
+        
+    # KAWAS-KR-91, GSECL-GS-91, POWERICA added
+    elif reName in ["KR-91", "JM-91"]:
+        excelDf = excelDf.iloc[:, [0,4]]
+        excelDf.rename(columns = {0: 'Timestamp', 4:'semData'}, inplace = True)
+    elif reName == "GS-91":
+        excelDf = excelDf.iloc[:, [0,8]]
+        excelDf.rename(columns = {0: 'Timestamp', 8:'semData'}, inplace = True)
 
     # convert string typed column to float
     excelDf['semData'] = excelDf['semData'].astype(float)
