@@ -5,10 +5,8 @@ def stateNameData(stateName: str):
     Returns:
         Name of the state for graph plotting!!!
     """
-    if stateName == "DN1":
-        return "दादरा नगर हवेली"
-    elif stateName == "DD1":
-        return "दमन दीव"
+    if stateName == "TD1":
+        return "दादरा दमन"
     elif stateName == "GO1":
         return "गोवा"
     elif stateName == "CS1":

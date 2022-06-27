@@ -28,8 +28,8 @@ def fetchScadaSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, sta
     # read pmu excel 
     excelDf = pd.read_csv(targetFilePath, skiprows=2, skipfooter=7, engine='python')
     # print("scada Data")
-    if stateName == "DN1":
-        column = "DNH_DRWL_TTL"
+    if stateName == "TD1":
+        column = "DDDNH_Total"
     elif stateName == "GO1":
         column = "GOA_DRWL_TTL"
     elif stateName == "DD1":
