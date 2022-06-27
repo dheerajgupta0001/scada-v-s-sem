@@ -45,13 +45,13 @@ def testFetchSemSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, s
     # print(excelDf)
     # append previous code
     # excelDf = pd.read_excel(targetFilePath, skiprows=9, skipfooter=3, header=None)
-    if stateName == "DN1":
-        excelDf = excelDf.iloc[:, [0,21]]
-        excelDf.rename(columns = {0: 'Timestamp', 21:'semData'}, inplace = True)
+    if stateName == "TD1":
+        excelDf = excelDf.iloc[:, [0,30]]
+        excelDf.rename(columns = {0: 'Timestamp', 30:'semData'}, inplace = True)
         # print(excelDf)
-    elif stateName == "DD1":
-        excelDf = excelDf.iloc[:, [0,11]]
-        excelDf.rename(columns = {0: 'Timestamp', 11:'semData'}, inplace = True)
+    # elif stateName == "DD1":
+    #     excelDf = excelDf.iloc[:, [0,11]]
+    #     excelDf.rename(columns = {0: 'Timestamp', 11:'semData'}, inplace = True)
     elif stateName == "GO1":
         excelDf = excelDf.iloc[:, [0,8]]
         excelDf.rename(columns = {0: 'Timestamp', 8:'semData'}, inplace = True)
@@ -59,8 +59,8 @@ def testFetchSemSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, s
         excelDf = excelDf.iloc[:, [0,32]]
         excelDf.rename(columns = {0: 'Timestamp', 32:'semData'}, inplace = True)
     elif stateName == "MP2":
-        excelDf = excelDf.iloc[:, [0,31]]
-        excelDf.rename(columns = {0: 'Timestamp', 31:'semData'}, inplace = True)
+        excelDf = excelDf.iloc[:, [0,32]]
+        excelDf.rename(columns = {0: 'Timestamp', 32:'semData'}, inplace = True)
     elif stateName == "GU2":
         excelDf = excelDf.iloc[:, [0,32]]
         excelDf.rename(columns = {0: 'Timestamp', 32:'semData'}, inplace = True)
