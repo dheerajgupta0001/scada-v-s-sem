@@ -19,7 +19,7 @@ def fetchConsErrorReportData(endDate, appDbConnStr: str):
     reportList = ["constituents", "re", "isgs"]
     for reportType in reportList:
         if reportType == "constituents":
-            constituentsName = ["BR1", "CS1", "DD1", "DN1", "GO1",
+            constituentsName = ["BR1", "CS1", "TD1", "GO1",
                                 "GU2", "HZ1", "MH2", "MP2", "ER1", "NR1", "SR1"]
             # print(constituentsName)
 
