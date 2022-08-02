@@ -29,7 +29,7 @@ def fetchScadaSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, sta
     excelDf = pd.read_csv(targetFilePath, skiprows=2, skipfooter=7, engine='python')
     # print("scada Data")
     if stateName == "TD1":
-        column = "DDDNH_Total"
+        column = "DDDNH_Actual"
     elif stateName == "GO1":
         column = "GOA_DRWL_TTL"
     elif stateName == "DD1":
