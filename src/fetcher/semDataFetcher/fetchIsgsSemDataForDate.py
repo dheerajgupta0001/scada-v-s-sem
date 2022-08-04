@@ -155,6 +155,8 @@ def fetchIsgsSemSummaryForDate(semIsgsFolderPath: str, targetDt: dt.datetime, is
     #     excelDf.rename(columns={0: 'Timestamp', 2: 'semData'}, inplace=True)
     
     # print(excelDf)
+    # convert string typed value '--' column to ZERO
+    excelDf.loc[excelDf["semData"] == "--", "semData"] = 0
     # convert string typed column to float
     excelDf['semData'] = excelDf['semData'].astype(float)
     # print(excelDf)

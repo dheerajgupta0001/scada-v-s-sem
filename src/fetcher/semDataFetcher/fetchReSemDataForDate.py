@@ -110,6 +110,8 @@ def fetchReSemSummaryForDate(semReFolderPath: str, targetDt: dt.datetime, reName
         excelDf = excelDf.iloc[:, [0,8]]
         excelDf.rename(columns = {0: 'Timestamp', 8:'semData'}, inplace = True)
 
+    # convert string typed value '--' column to ZERO
+    excelDf.loc[excelDf["semData"] == "--", "semData"] = 0
     # convert string typed column to float
     excelDf['semData'] = excelDf['semData'].astype(float)
     semData = excelDf["semData"].tolist()
