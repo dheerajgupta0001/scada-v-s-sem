@@ -45,7 +45,8 @@ def create():
         endDate = dt.datetime.strptime(endDate, '%Y-%m-%d')
         # print(startDate)
         # reName = request.form.getlist('reList')
-        reList = ["OS-91", "AM-91", "MA-91", "AR-91", "RE-91", "GI-91", "GI-94", "IX-91", "AG-91", "AF-91", "GH-91", "EG-91", "GP-91", "TP-91", "AV-91","KR-91", "JM-91", "GS-91"]
+        reList = ["OS-91", "AM-91", "MA-91", "AR-91", "RE-91", "GI-91", "GI-94", "IX-91", "AG-91", "AF-91", "GH-91",
+                  "EG-91", "GP-91", "TP-91", "AV-91","KR-91", "JM-91", "GS-91", "CR-91", "MJ-91", "GR-91"]
         # reList = [ "AV-91"]
         # print(reList)
 
@@ -83,7 +84,8 @@ def plot():
         startDate = dt.datetime.strptime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strptime(endDate, '%Y-%m-%d')
         # reName = request.form.getlist('reList') , "EG-91", "GP-91", "TP-91"
-        reName = ["OS-91", "AM-91", "MA-91", "AR-91", "RE-91", "GI-91", "GI-94", "IX-91", "AG-91", "AF-91", "GH-91", "EG-91", "GP-91", "TP-91", "AV-91","KR-91", "JM-91", "GS-91"]
+        reName = ["OS-91", "AM-91", "MA-91", "AR-91", "RE-91", "GI-91", "GI-94", "IX-91", "AG-91", "AF-91", "GH-91",
+                  "EG-91", "GP-91", "TP-91", "AV-91","KR-91", "JM-91", "GS-91", "CR-91", "MJ-91", "GR-91"]
         # print(reName)
 
         # testing of multiple div dynamically

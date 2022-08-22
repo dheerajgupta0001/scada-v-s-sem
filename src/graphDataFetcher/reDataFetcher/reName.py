@@ -44,6 +44,12 @@ def reDisplayNameData(stateName: str):
         return "जीएसईसीएल सोलर"
     elif stateName == "JM-91":
         return "पावारिका"
+    elif stateName == "CR-91":
+        return "साइटेक पवन"
+    elif stateName == "MJ-91":
+        return "सृजन पवन"
+    elif stateName == "GR-91":
+        return "गंधार सोलर"
 
 
         

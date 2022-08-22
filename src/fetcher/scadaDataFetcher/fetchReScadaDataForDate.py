@@ -64,6 +64,12 @@ def fetchReScadaSummaryForDate( scadaReFolderPath: str, targetDt: dt.datetime, r
         column = "GSECL_Solar "
     elif reName == "JM-91":
         column = "Powerica_Wind"
+    elif reName == "CR-91":
+        column = "Sitac_Wind"
+    elif reName == "MJ-91":
+        column = "Srijan_Wind"
+    elif reName == "GR-91":
+        column = "Gandhar_Solar"
     excelDf = excelDf.loc[:, ["Timestamp", column]]
     # excelDf['Timestamp'] = pd.to_datetime(excelDf["Timestamp"],format="%Y-%m-%d %H:%M:S")
     excelDf['Timestamp'] = pd.to_datetime(excelDf["Timestamp"],dayfirst=True)

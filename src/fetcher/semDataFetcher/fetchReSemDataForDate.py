@@ -26,6 +26,12 @@ def fetchReSemSummaryForDate(semReFolderPath: str, targetDt: dt.datetime, reName
         targetFilename = '{0}.{1}'.format(fileDateStr, 'RD1')
     if reName == "JM-91":
         targetFilename = '{0}.{1}'.format(fileDateStr, 'PW1')
+    if reName == "CR-91":
+        targetFilename = '{0}.{1}'.format(fileDateStr, 'CR1')
+    if reName == "MJ-91":
+        targetFilename = '{0}.{1}'.format(fileDateStr, 'MJ1')
+    if reName == "GR-91":
+        targetFilename = '{0}.{1}'.format(fileDateStr, 'GR1')
     targetFilePath = os.path.join(semReFolderPath, targetFilename)
     # print(targetFilePath)
 
@@ -102,8 +108,8 @@ def fetchReSemSummaryForDate(semReFolderPath: str, targetDt: dt.datetime, reName
         excelDf = excelDf.iloc[:, [0,7]]
         excelDf.rename(columns = {0: 'Timestamp', 7:'semData'}, inplace = True)
         
-    # KAWAS-KR-91, GSECL-GS-91, POWERICA added
-    elif reName in ["KR-91", "JM-91"]:
+    # KAWAS-KR-91, GSECL-GS-91, POWERICA added "CR-91- sitac", "MJ-91_srijan", "GR-91_gandhar"
+    elif reName in ["KR-91", "JM-91", "CR-91", "MJ-91", "GR-91"]:
         excelDf = excelDf.iloc[:, [0,4]]
         excelDf.rename(columns = {0: 'Timestamp', 4:'semData'}, inplace = True)
     elif reName == "GS-91":
