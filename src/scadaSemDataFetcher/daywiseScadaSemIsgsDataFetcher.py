@@ -36,7 +36,7 @@ def fetchScadaSemIsgsRawData(scadaIsgsFolderPath: str, semIsgsFolderPath: str, s
         # print(len(semData))
         semData.extend(dailySemReData)
         print("sem data processing ended")
-        print(semData)
+        # print(semData)
         dailyScadReData, timeStamp = fetchIsgsScadaSummaryForDate(scadaIsgsFolderPath, currDate,  isgsName)
         # print(type(timeStamp[0]))
         times.extend(timeStamp)

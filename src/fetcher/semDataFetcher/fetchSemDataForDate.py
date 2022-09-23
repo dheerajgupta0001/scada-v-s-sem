@@ -5,7 +5,7 @@ import os
 import pandas as pd
 
 
-def testFetchSemSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, stateName: str) -> List :
+def fetchSemSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, stateName: str) -> List :
     """fetched pmu availability summary data rows for a date from excel file
 
     Args:

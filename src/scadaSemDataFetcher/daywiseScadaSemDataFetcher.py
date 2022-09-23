@@ -3,9 +3,9 @@ import datetime as dt
 import pandas as pd
 import matplotlib.pyplot as plt
 from typing import List
-from src.fetcher.fetchSemDataForDate import fetchSemSummaryForDate
-from src.fetcher.testFetchSemDataForDate import testFetchSemSummaryForDate
-from src.fetcher.fetchScadaDataForDate import fetchScadaSummaryForDate
+# from src.fetcher.fetchSemDataForDate import fetchSemSummaryForDate
+from src.fetcher.semDataFetcher.fetchSemDataForDate import fetchSemSummaryForDate
+from src.fetcher.scadaDataFetcher.fetchScadaDataForDate import fetchScadaSummaryForDate
 
 def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str,scadaFolderPath: str, semFolderPath: str, startDate: dt.datetime, endDate: dt.datetime, stateName: str) -> bool:
     """fetches the pmu availability data from excel files 
@@ -33,8 +33,7 @@ def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str,scadaFolderPa
     while currDate <= reqEndDt:
         # fetch sem data for the date
         # print("sem data processing")
-        # dailySemData = fetchSemSummaryForDate(scadaSemFolderPath, currDate, stateName)
-        dailySemData = testFetchSemSummaryForDate(semFolderPath, currDate, stateName)
+        dailySemData = fetchSemSummaryForDate(semFolderPath, currDate, stateName)
         # print("sem file {}".format(semFolderPath))
         # print(len(semData))
         semData.extend(dailySemData)
@@ -42,8 +41,6 @@ def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str,scadaFolderPa
         # fetch scada data and convert min wise to block wise
         dailyScadaData, timeStamp = fetchScadaSummaryForDate(scadaFolderPath, currDate, stateName)
         times.extend(timeStamp)
-        # print("date")
-        # print(times)
         scadaData.extend(dailyScadaData)
 
         currDate += dt.timedelta(days=1)
@@ -58,7 +55,6 @@ def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str,scadaFolderPa
     dataDF['SCADA_DATA']= scadaData
     dataDF['SEM_DATA']= semData
     dataDF['CONSTITUENTS_NAME']= stateName
-    # print(dataDF)
     # convert nan to None
     dataDF = dataDF.where(pd.notnull(dataDF), None)
 

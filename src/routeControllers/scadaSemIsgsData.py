@@ -67,7 +67,7 @@ def create():
                 scadaSemIsgsRecord)
             if isRawCreationSuccess:
                 # print("स्काडा सेम आईएसजीएस डेटा प्रविष्टि {} के लिए सफल".format(isgsName))
-                print("Done")
+                print("{} ISGS Done".format(isgsName))
             else:
                 print("स्काडा सेम आईएसजीएस डेटा प्रविष्टि {} के लिए असफल".format(isgsName))
         # print(errorPerc[0])
