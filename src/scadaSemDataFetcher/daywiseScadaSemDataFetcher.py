@@ -4,7 +4,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from typing import List
 # from src.fetcher.fetchSemDataForDate import fetchSemSummaryForDate
-from src.fetcher.semDataFetcher.fetchSemDataForDate import fetchSemSummaryForDate
+# from src.fetcher.semDataFetcher.fetchSemDataForDate import fetchSemSummaryForDate
+from src.fetcher.semDataFetcher.testFetchSemDataForDate import fetchSemSummaryForDate
 from src.fetcher.scadaDataFetcher.fetchScadaDataForDate import fetchScadaSummaryForDate
 
 def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str,scadaFolderPath: str, semFolderPath: str, startDate: dt.datetime, endDate: dt.datetime, stateName: str) -> bool:
