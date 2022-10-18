@@ -40,16 +40,10 @@ def create():
     if request.method == 'POST' and form.validate():
         startDate = request.form.get('startDate')
         endDate = request.form.get('endDate')
-        # print("tsting {}".format(startDate))
         startDate = dt.datetime.strptime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strptime(endDate, '%Y-%m-%d')
-        # print(startDate)
-        # reName = request.form.getlist('reList')
         reList = ["OS-91", "AM-91", "MA-91", "AR-91", "RE-91", "GI-91", "GI-94", "IX-91", "AG-91", "AF-91", "GH-91",
                   "EG-91", "GP-91", "TP-91", "AV-91","KR-91", "JM-91", "GS-91", "CR-91", "MJ-91", "GR-91"]
-        # reList = [ "AV-91"]
-        # print(reList)
-
         # testing of multiple div dynamically
         for  reName in reList:
             isRawCreationSuccess= False
@@ -58,11 +52,9 @@ def create():
                                                         startDate, endDate,  reName)
             isRawCreationSuccess = scadaSemReRepo.pushScadaSemReRecord(scadaSemReRecord)
             if isRawCreationSuccess:
-                # print("स्काडा सेम आरई डेटा प्रविष्टि {} के लिए सफल".format( reName))
-                print("Done")
+                print("स्काडा सेम आरई डेटा प्रविष्टि {} के लिए सफल".format( reName))
             else:
                 print("स्काडा सेम आरई डेटा प्रविष्टि {} के लिए असफल".format( reName))
-        # print(errorPerc[0])
         startDate=dt.datetime.strftime(startDate, '%Y-%m-%d')
         endDate=dt.datetime.strftime(endDate, '%Y-%m-%d')
         if isRawCreationSuccess:
@@ -80,13 +72,11 @@ def plot():
     if request.method == 'POST':
         startDate = request.form.get('startDate')
         endDate = request.form.get('endDate')
-        # print("tsting {}".format(startDate))
         startDate = dt.datetime.strptime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strptime(endDate, '%Y-%m-%d')
         # reName = request.form.getlist('reList') , "EG-91", "GP-91", "TP-91"
         reName = ["OS-91", "AM-91", "MA-91", "AR-91", "RE-91", "GI-91", "GI-94", "IX-91", "AG-91", "AF-91", "GH-91",
                   "EG-91", "GP-91", "TP-91", "AV-91","KR-91", "JM-91", "GS-91", "CR-91", "MJ-91", "GR-91"]
-        # print(reName)
 
         # testing of multiple div dynamically
         dfData_g = []
@@ -96,7 +86,6 @@ def plot():
         for cItr,currReName in enumerate(reName):
             #get the instance of scada sem repository for GRAPH PLOTTING
             plotScadaSemReDataRepo = PlotScadaSemReData(appDbConnStr)
-
             # fetch scada sem data from db via the repository instance of ith state
             dfData_gInd, errorPercInd = plotScadaSemReDataRepo.plotScadaSemReData(startDate, endDate, currReName)
             re= reDisplayNameData(currReName)
@@ -104,12 +93,9 @@ def plot():
             dfData_g.append(dfData_gInd)
             errorPerc.append(errorPercInd)
             divItrs.append(cItr+1)
-        # print(errorPerc[0])
         startDate=dt.datetime.strftime(startDate, '%Y-%m-%d')
         endDate=dt.datetime.strftime(endDate, '%Y-%m-%d')
         div_info = zip(reName, errorPerc, divItrs)
-        # print(reDisplayList)
-        print(errorPerc)
 
         return render_template('scadaSemRe/plot.html.j2', data= dfData_g, div_info= div_info,
                                 reName= reName, reDisplayList= reDisplayList,
