@@ -1,8 +1,5 @@
-#from src.fetchers.dayPmuAvailabilitySummaryFetcher import fetchPmuAvailabilitySummaryForDate
 import datetime as dt
 import pandas as pd
-import matplotlib.pyplot as plt
-from typing import List
 from src.fetcher.semDataFetcher.testFetchIsgsSemDataForDate import fetchIsgsSemSummaryForDate
 from src.fetcher.scadaDataFetcher.fetchIsgsScadaDataForDate import fetchIsgsScadaSummaryForDate
 
@@ -37,7 +34,6 @@ def fetchScadaSemIsgsRawData(scadaIsgsFolderPath: str, semIsgsFolderPath: str, s
         scadaData.extend(dailyScadReData)
 
         currDate += dt.timedelta(days=1)
-
     # dataframe for pushing data to DB
     dataDF = pd.DataFrame()
     dataDF['time_stamp']= times
@@ -46,7 +42,6 @@ def fetchScadaSemIsgsRawData(scadaIsgsFolderPath: str, semIsgsFolderPath: str, s
     dataDF['ISGS_NAME']=  isgsName
     # convert nan to None
     dataDF = dataDF.where(pd.notnull(dataDF), None)
-
     # convert dataframe to list of dictionaries
     scadaSemRecords = dataDF.to_dict('records')
 

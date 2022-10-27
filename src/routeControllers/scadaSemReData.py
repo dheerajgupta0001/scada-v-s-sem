@@ -9,6 +9,7 @@ from datetime import date
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired
 import datetime as dt
+from src.config.fileMappings import getReMappings
 from src.config.appConfig import getConfig
 from src.scadaSemDataFetcher.daywiseScadaSemReDataFetcher import fetchScadaSemReRawData
 from src.repos.insertScadaSemReToDb import ScadaSemReSummaryRepo
@@ -42,8 +43,11 @@ def create():
         endDate = request.form.get('endDate')
         startDate = dt.datetime.strptime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strptime(endDate, '%Y-%m-%d')
-        reList = ["OS-91", "AM-91", "MA-91", "AR-91", "RE-91", "GI-91", "GI-94", "IX-91", "AG-91", "AF-91", "GH-91",
-                  "EG-91", "GP-91", "TP-91", "AV-91","KR-91", "JM-91", "GS-91", "CR-91", "MJ-91", "GR-91"]
+        # get file config
+        reConfig = getReMappings()
+        reList = reConfig['RE'].dropna()
+        # reList = ["OS-91", "AM-91", "MA-91", "AR-91", "RE-91", "GI-91", "GI-94", "IX-91", "AG-91", "AF-91", "GH-91",
+        #           "EG-91", "GP-91", "TP-91", "AV-91","KR-91", "JM-91", "GS-91", "CR-91", "MJ-91", "GR-91"]
         # testing of multiple div dynamically
         for  reName in reList:
             isRawCreationSuccess= False
@@ -52,7 +56,7 @@ def create():
                                                         startDate, endDate,  reName)
             isRawCreationSuccess = scadaSemReRepo.pushScadaSemReRecord(scadaSemReRecord)
             if isRawCreationSuccess:
-                print("स्काडा सेम आरई डेटा प्रविष्टि {} के लिए सफल".format( reName))
+                print("RE {} Done".format( reName))
             else:
                 print("स्काडा सेम आरई डेटा प्रविष्टि {} के लिए असफल".format( reName))
         startDate=dt.datetime.strftime(startDate, '%Y-%m-%d')

@@ -21,7 +21,7 @@ def fetchIsgsSemSummaryForDate(semIsgsFolderPath: str, targetDt: dt.datetime, is
     # sem column name from mapping file
     semCol = isgsConfig.loc[isgsConfig['ISGS'] == isgsName, 'SEM'].iloc[0]
     # file extension (IN6/IN7/....csv type format ) name from isgs Name
-    fileNameExtension = isgsConfig.loc[isgsConfig['ISGS'] == isgsName, 'file'].iloc[0]
+    fileNameExtension = isgsConfig.loc[isgsConfig['ISGS']== isgsName, 'file'].iloc[0]
     targetFilename = '{0}.{1}.csv'.format(fileDateStr, fileNameExtension)
     targetFilePath = os.path.join(semIsgsFolderPath, targetFilename)
 
@@ -30,17 +30,16 @@ def fetchIsgsSemSummaryForDate(semIsgsFolderPath: str, targetDt: dt.datetime, is
         print("ISGS Sem file for date {0} is not present for state {1}".format(
             targetDt, isgsName))
         return []
-    
-    excelDf = pd.read_csv(targetFilePath, skipfooter= 1, skiprows= 1)
-    
+
+    excelDf = pd.read_csv(targetFilePath, skipfooter=1, skiprows=1)
+
     # excelDf = pd.read_excel(targetFilePath, skiprows=9, skipfooter=3, header=None)
     excelDf = excelDf[[semCol]]
-    excelDf.rename(columns = {'TIME': 'Timestamp', semCol:'semData'}, inplace = True)
+    excelDf.rename(columns={semCol: 'semData'}, inplace=True)
 
     # convert string typed value '--' column to ZERO
     excelDf.loc[excelDf["semData"] == "--", "semData"] = 0
     # convert string typed column to float
     excelDf['semData'] = excelDf['semData'].astype(float)
-    # print(excelDf)
     semData = excelDf["semData"].tolist()
     return semData
