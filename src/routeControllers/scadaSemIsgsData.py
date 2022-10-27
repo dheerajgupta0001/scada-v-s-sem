@@ -14,6 +14,7 @@ from src.scadaSemDataFetcher.daywiseScadaSemIsgsDataFetcher import fetchScadaSem
 from src.repos.insertScadaSemIsgsToDb import ScadaSemIsgsSummaryRepo
 from src.graphDataFetcher.isgsDataFetcher.isgsName import isgsDisplayNameData
 from src.graphDataFetcher.isgsDataFetcher.graphPlotDataFetcher import PlotScadaSemIsgsData
+from src.config.fileMappings import getIsgsMappings
 
 # get application config
 appConfig = getConfig()
@@ -45,19 +46,17 @@ def create():
     if request.method == 'POST' and form.validate():
         startDate = request.form.get('startDate')
         endDate = request.form.get('endDate')
-        # print("tsting {}".format(startDate))
         startDate = dt.datetime.strptime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strptime(endDate, '%Y-%m-%d')
         # isgsName = request.form.getlist('isgsList')
-        isgsList = ["AC-91", "BL-91", "CG-91", "DB-91", "DC-91", "DG-91", "DW-91", "EM-91", "GA-91",
-                    "GM-91", "JD-96", "JD-97", "JH-91", "JY-91", "KA-91", "KB-91", "KO-97", "KO-98",
-                    "KS-91", "KW-91", "LK-91", "MB-91", "MD-96", "MD-97", "MN-91", "NS-91", "RG-91",
-                    "RK-91", "SA-91", "SK-91", "SS-91", "TA-91", "TA-94", "TR-91", "VI-96",
-                    "VI-97", "VI-99", "VI-V4", "VI-V5", "SO-91", "LA-91", "GD-91", "KH-91"]
-        # print(isgsList)
-        # isgsList = ["SK-91"]
-
-        # testing of multiple div dynamically
+        # get file config
+        isgsConfig = getIsgsMappings()
+        isgsList = isgsConfig['ISGS'].dropna()
+        # isgsList = ["AC-91", "BL-91", "CG-91", "DB-91", "DC-91", "DG-91", "DW-91", "EM-91", "GA-91",
+        #             "GM-91", "JD-96", "JD-97", "JH-91", "JY-91", "KA-91", "KB-91", "KO-97", "KO-98",
+        #             "KS-91", "KW-91", "LK-91", "MB-91", "MD-96", "MD-97", "MN-91", "NS-91", "RG-91",
+        #             "RK-91", "SA-91", "SK-91", "SS-91", "TA-91", "TA-94", "TR-91", "VI-96",
+        #             "VI-97", "VI-99", "VI-V4", "VI-V5", "SO-91", "LA-91", "GD-91", "KH-91"]
         for isgsName in isgsList:
             isRawCreationSuccess = False
             # get the scada sem data of 1st re name for GRAPH PLOTTING

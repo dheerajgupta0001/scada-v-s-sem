@@ -4,6 +4,7 @@ project_env/
 myVirtual/
 node_modules/
 config.xlsx
+Mapping.xlsx
 __pycache__
 *.py[cod]
 *$py.class
