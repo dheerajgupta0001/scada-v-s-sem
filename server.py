@@ -10,6 +10,7 @@ import pandas as pd
 import json
 import os
 from waitress import serve
+from src.config.fileMappings import initConfigs
 from src.config.appConfig import getConfig
 from src.scadaSemDataFetcher.daywiseScadaSemDataFetcher import fetchScadaSemRawData
 from src.repos.insertScadaSemToDb import ScadaSemSummaryRepo
@@ -23,6 +24,8 @@ app = Flask(__name__)
 
 # get application config
 appConfig = getConfig()
+# get ISGS details config
+initConfigs()
 
 # Set the secret key to some random bytes
 app.secret_key = appConfig['flaskSecret']

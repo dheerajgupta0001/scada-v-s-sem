@@ -1,8 +1,5 @@
 import datetime as dt
-from os import rename
 import pandas as pd
-import matplotlib.pyplot as plt
-from typing import List
 from src.fetcher.semDataFetcher.testFetchReSemDataForDate import fetchReSemSummaryForDate
 from src.fetcher.scadaDataFetcher.fetchReScadaDataForDate import fetchReScadaSummaryForDate
 
