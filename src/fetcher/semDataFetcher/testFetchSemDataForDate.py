@@ -25,44 +25,44 @@ def fetchSemSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, state
         print("Sem file for date {0} is not present for state {1}".format(targetDt, stateName))
         return [] 
 
-    excelDf = pd.read_csv(targetFilePath, skipfooter= 1)
+    excelDf = pd.read_csv(targetFilePath, skipfooter= 1, skiprows= 1)
     if stateName == "GO1":
-        excelDf = excelDf[['TIME', 'GO-901']]
-        excelDf.rename(columns = {'TIME': 'Timestamp', 'GO-901':'semData'}, inplace = True)
+        excelDf = excelDf[['GO-91']]
+        excelDf.rename(columns = {'GO-91':'semData'}, inplace = True)
         # print(excelDf)
     elif stateName == "BR1":
-        excelDf = excelDf[['TIME', 'BR-901']]
-        excelDf.rename(columns = {'TIME': 'Timestamp', 'BR-901':'semData'}, inplace = True)
+        excelDf = excelDf[['BR-91']]
+        excelDf.rename(columns = {'BR-91':'semData'}, inplace = True)
     elif stateName == "TD1":
-        excelDf['DDDNH'] = excelDf['DD-901'] + excelDf['DN-901']
-        excelDf = excelDf[['TIME', 'DDDNH']]
-        excelDf.rename(columns = {'TIME': 'Timestamp', 'DDDNH':'semData'}, inplace = True)
+        excelDf['DDDNH'] = excelDf['DD-91'] + excelDf['DN-91']
+        excelDf = excelDf[['DDDNH']]
+        excelDf.rename(columns = {'DDDNH':'semData'}, inplace = True)
     elif stateName == "CS1":
-        excelDf = excelDf[['TIME', 'CS-901']]
-        excelDf.rename(columns = {'TIME': 'Timestamp', 'CS-901':'semData'}, inplace = True)
+        excelDf = excelDf[['CS-91']]
+        excelDf.rename(columns = {'CS-91':'semData'}, inplace = True)
     elif stateName == "MP2":
-        excelDf = excelDf[['TIME', 'MP-901']]
-        excelDf.rename(columns = {'TIME': 'Timestamp', 'MP-901':'semData'}, inplace = True)
+        excelDf = excelDf[['MP-91']]
+        excelDf.rename(columns = {'MP-91':'semData'}, inplace = True)
     elif stateName == "GU2":
-        excelDf = excelDf[['TIME', 'GU-901']]
-        excelDf.rename(columns = {'TIME': 'Timestamp', 'GU-901':'semData'}, inplace = True)
+        excelDf = excelDf[['GU-91']]
+        excelDf.rename(columns = {'GU-91':'semData'}, inplace = True)
     elif stateName == "HZ1":
-        excelDf = excelDf[['TIME', 'HZ-901']]
-        excelDf.rename(columns = {'TIME': 'Timestamp', 'HZ-901':'semData'}, inplace = True)
+        excelDf = excelDf[['HZ-91']]
+        excelDf.rename(columns = {'HZ-91':'semData'}, inplace = True)
     elif stateName == "MH2":
-        excelDf = excelDf[['TIME', 'MH-901']]
-        excelDf.rename(columns = {'TIME': 'Timestamp', 'MH-901':'semData'}, inplace = True)
+        excelDf = excelDf[['MH-91']]
+        excelDf.rename(columns = {'MH-91':'semData'}, inplace = True)
     elif stateName == "NR1":
-        excelDf = excelDf[['TIME', 'NR-901']]
-        excelDf.rename(columns = {'TIME': 'Timestamp', 'NR-901':'semData'}, inplace = True)
+        excelDf = excelDf[['NR-93']]
+        excelDf.rename(columns = {'NR-93':'semData'}, inplace = True)
         excelDf['semData'] = -1*excelDf['semData']
     elif stateName == "ER1":
-        excelDf = excelDf[['TIME', 'ER-901']]
-        excelDf.rename(columns = {'TIME': 'Timestamp', 'ER-901':'semData'}, inplace = True)
+        excelDf = excelDf[['ER-91']]
+        excelDf.rename(columns = {'ER-91':'semData'}, inplace = True)
         excelDf['semData'] = -1*excelDf['semData']
     elif stateName == "SR1":
-        excelDf = excelDf[['TIME', 'SR-901']]
-        excelDf.rename(columns = {'TIME': 'Timestamp', 'SR-901':'semData'}, inplace = True)
+        excelDf = excelDf[['SR-91']]
+        excelDf.rename(columns = {'SR-91':'semData'}, inplace = True)
         excelDf['semData'] = -1*excelDf['semData']
     # convert string typed column to float
     excelDf['semData'] = excelDf['semData'].astype(float)
