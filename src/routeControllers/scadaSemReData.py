@@ -56,7 +56,7 @@ def create():
                                                         startDate, endDate,  reName)
             isRawCreationSuccess = scadaSemReRepo.pushScadaSemReRecord(scadaSemReRecord)
             if isRawCreationSuccess:
-                print("RE {} Done".format( reName))
+                print("{} Data Success".format( reName))
             else:
                 print("स्काडा सेम आरई डेटा प्रविष्टि {} के लिए असफल".format( reName))
         startDate=dt.datetime.strftime(startDate, '%Y-%m-%d')
@@ -79,8 +79,11 @@ def plot():
         startDate = dt.datetime.strptime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strptime(endDate, '%Y-%m-%d')
         # reName = request.form.getlist('reList') , "EG-91", "GP-91", "TP-91"
-        reName = ["OS-91", "AM-91", "MA-91", "AR-91", "RE-91", "GI-91", "GI-94", "IX-91", "AG-91", "AF-91", "GH-91",
-                  "EG-91", "GP-91", "TP-91", "AV-91","KR-91", "JM-91", "GS-91", "CR-91", "MJ-91", "GR-91"]
+        reConfig = getReMappings()
+        reName = reConfig['RE'].dropna()
+        reName = reName.to_list()
+        # reName = ["OS-91", "AM-91", "MA-91", "AR-91", "RE-91", "GI-91", "GI-94", "IX-91", "AG-91", "AF-91", "GH-91",
+        #           "EG-91", "GP-91", "TP-91", "AV-91","KR-91", "JM-91", "GS-91", "CR-91", "MJ-91", "GR-91", "NK-91", "AP-91"]
 
         # testing of multiple div dynamically
         dfData_g = []
