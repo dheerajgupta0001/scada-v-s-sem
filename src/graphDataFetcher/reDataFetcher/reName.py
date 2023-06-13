@@ -36,7 +36,7 @@ def reDisplayNameData(stateName: str):
         return "टीपीआरईएल सोलर"
     
     elif stateName == "AV-91":
-        return "अविकिरन"
+        return "अविकिरन पवन"
     
     elif stateName == "KR-91":
         return "खावास सोलर"
@@ -55,7 +55,7 @@ def reDisplayNameData(stateName: str):
     elif stateName == "NK-91":
         return "ए.डबल्यू.ई.के.4.एल.  पवन"
     elif stateName == "AP-91":
-        return "खाखरदा सोलर"
+        return "खाखरदा पवन"
 
     # 09-05-2023
     elif stateName == "SN-91":
@@ -65,7 +65,13 @@ def reDisplayNameData(stateName: str):
     elif stateName == "SF-91":
         return "शेरिशा सोलर"
     elif stateName == "NE-91":
-        return "कोटदामध पवन"    
+        return "कोटदामध पवन"
+
+    # 13-06-2023
+    elif stateName == "MS-91":
+        return "भवसिंगपुरा सोलर"
+    elif stateName == "TS-91":
+        return "सिदपुर सोलर"
 
 
         
