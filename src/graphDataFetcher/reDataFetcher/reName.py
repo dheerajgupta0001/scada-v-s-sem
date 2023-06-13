@@ -49,7 +49,7 @@ def reDisplayNameData(stateName: str):
     elif stateName == "MJ-91":
         return "सृजन पवन"
     elif stateName == "GR-91":
-        return "गंधार सोलर"
+        return "खाखरदा सोलर"
 
 
         
