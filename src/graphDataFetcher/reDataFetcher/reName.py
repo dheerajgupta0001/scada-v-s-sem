@@ -53,9 +53,19 @@ def reDisplayNameData(stateName: str):
 
     # 17-04-203
     elif stateName == "NK-91":
-        return "नखट्राना पवन"
+        return "ए.डबल्यू.ई.के.4.एल.  पवन"
     elif stateName == "AP-91":
         return "खाखरदा सोलर"
+
+    # 09-05-2023
+    elif stateName == "SN-91":
+        return "एस.एन.टी.पी.सी. सोलर"
+    elif stateName == "SB-91":
+        return "एस.बी.ई.एस. पवन"
+    elif stateName == "SF-91":
+        return "शेरिशा सोलर"
+    elif stateName == "NE-91":
+        return "कोटदामध पवन"    
 
 
         
