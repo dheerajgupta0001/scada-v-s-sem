@@ -14,6 +14,7 @@ from src.config.appConfig import getConfig
 from src.scadaSemDataFetcher.daywiseScadaSemReDataFetcher import fetchScadaSemReRawData
 from src.repos.insertScadaSemReToDb import ScadaSemReSummaryRepo
 from src.graphDataFetcher.reDataFetcher.reName import reDisplayNameData
+from src.graphDataFetcher.reDataFetcher.reNameFromExcel import reDisplayNameFromExcel
 from src.graphDataFetcher.reDataFetcher.graphPlotDataFetcher import PlotScadaSemReData
 
 # get application config
@@ -95,7 +96,8 @@ def plot():
             plotScadaSemReDataRepo = PlotScadaSemReData(appDbConnStr)
             # fetch scada sem data from db via the repository instance of ith state
             dfData_gInd, errorPercInd = plotScadaSemReDataRepo.plotScadaSemReData(startDate, endDate, currReName)
-            re= reDisplayNameData(currReName)
+            # re= reDisplayNameData(currReName)
+            re= reDisplayNameFromExcel(currReName)
             reDisplayList.append(re)
             dfData_g.append(dfData_gInd)
             errorPerc.append(errorPercInd)
