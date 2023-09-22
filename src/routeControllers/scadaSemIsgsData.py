@@ -13,6 +13,7 @@ from src.config.appConfig import getConfig
 from src.scadaSemDataFetcher.daywiseScadaSemIsgsDataFetcher import fetchScadaSemIsgsRawData
 from src.repos.insertScadaSemIsgsToDb import ScadaSemIsgsSummaryRepo
 from src.graphDataFetcher.isgsDataFetcher.isgsName import isgsDisplayNameData
+from src.graphDataFetcher.isgsDataFetcher.isgsNameFromExcel import isgsDisplayNameFromExcel
 from src.graphDataFetcher.isgsDataFetcher.graphPlotDataFetcher import PlotScadaSemIsgsData
 from src.config.fileMappings import getIsgsMappings
 
@@ -92,12 +93,15 @@ def plot():
         startDate = dt.datetime.strptime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strptime(endDate, '%Y-%m-%d')
         # isgsName = request.form.getlist('isgsList')
+        # get file config
+        # isgsConfig = getIsgsMappings()
+        # isgsName = isgsConfig['ISGS'].dropna()
         isgsName = ["AC-91", "BL-91", "CG-91", "DB-91", "DC-91", "DG-91", "DW-91", "EM-91", "GA-91",
-                    "GM-91", "JD-96", "JD-97", "JH-91", "JY-91", "KA-91", "KB-91", "KO-97", "KO-98",
+                    "GM-91", "JD-96", "JD-97", "JH-91", "JY-91", "KA-94", "KB-91", "KO-97", "KO-98",
                     "KS-91", "KW-91", "LK-91", "MB-91", "MD-96", "MD-97", "MN-91", "NS-91", "RG-91",
                     "RK-91", "SA-91", "SK-91", "SS-91", "TA-91", "TA-94", "TR-91", "VI-96",
-                    "VI-97", "VI-99", "VI-V4", "VI-V5", "SO-91", "LA-91", "GD-91", "KH-91"]
-        # print(isgsName)
+                    "VI-97", "VI-99", "VI-V4", "VI-V5", "SO-91", "LA-91", "GD-91", "KH-91", "KA-95"]
+        print(isgsName)
 
         # testing of multiple div dynamically
         dfData_g = []
@@ -111,7 +115,8 @@ def plot():
             # fetch scada sem data from db via the repository instance of ith state
             dfData_gInd, errorPercInd = plotScadaSemIsgsDataRepo.plotScadaSemIsgsData(
                 startDate, endDate, currIsgsName)
-            isgs = isgsDisplayNameData(currIsgsName)
+            # isgs = isgsDisplayNameData(currIsgsName)
+            isgs= isgsDisplayNameFromExcel(currIsgsName)
             isgsDisplayList.append(isgs)
             dfData_g.append(dfData_gInd)
             errorPerc.append(errorPercInd)

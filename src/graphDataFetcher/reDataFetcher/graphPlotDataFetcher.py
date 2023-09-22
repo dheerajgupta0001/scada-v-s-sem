@@ -66,7 +66,12 @@ class PlotScadaSemReData():
         meterDataSum = data['SEM_DATA_RE'].sum()
         errorDiffList = data['SCADA_DATA_RE'] - data['SEM_DATA_RE']
         errorSum = errorDiffList.sum() 
-        errorPerc = round((errorSum/meterDataSum)*100, 2)
+        
+        if meterDataSum != 0:
+            errorPerc = round((errorSum/meterDataSum)*100, 2)
+        else: 
+            errorPerc =0
+        
         # convert dataframe to list of dictionaries
         resRecords = data.to_dict(orient='list')
         # print(resRecords)
