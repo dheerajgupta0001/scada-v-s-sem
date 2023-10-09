@@ -6,12 +6,14 @@ import pandas as pd
 fileMappingsDf = pd.DataFrame()
 isgsMappingsDf = pd.DataFrame()
 reMappingsDf = pd.DataFrame()
+linesMappingsDf = pd.DataFrame()
 
 jsonConfig: dict = {}
 
 def initConfigs():
     loadIsgsMappings()
     loadReMappings()
+    loadLinesMappings()
 
 
 def loadIsgsMappings(filePath='Mapping.xlsx'):
@@ -31,5 +33,14 @@ def loadReMappings(filePath='Mapping.xlsx'):
 def getReMappings():
     global reMappingsDf
     return reMappingsDf
+
+def loadLinesMappings(filePath='Mapping.xlsx'):
+    global linesMappingsDf
+    linesMappingsDf = pd.read_excel(filePath, sheet_name= 'Lines')
+    return linesMappingsDf
+
+def getLinesMappings():
+    global linesMappingsDf
+    return linesMappingsDf
 
 

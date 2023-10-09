@@ -1,0 +1,103 @@
+{% extends "layoutBase.html.j2" %}
+{# {% block title %}SCADA vs SEM RE PLOT{% endblock %} #}
+{% block title %}स्काडा बनाम सेम लाइंस प्लॉट{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<style type='text/css'>
+    h1 {
+    color : black;
+    }
+    h3 {
+    color : black;
+    border: 0.4rem solid transparent;
+    /* width: 8em;
+    height: 10em; */
+    max-height: 30em;
+    overflow: auto;
+    font-size: 1.5rem;
+    padding: 1rem;
+    }
+</style>
+<h1><strong>स्काडा बनाम सेम लाइंस ग्राफ प्रदर्शित करें</h1>
+<form class="form" method="POST">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+        <label for="startDate">आरंभ तिथि</label>
+        <input type="date" class="form-control" required="" name = "startDate" id="startDate" {% if startDate %} value="{{startDate}}" {% endif %}>
+        </div>
+        <div class="form-group col-md-6">
+        <label for="endDate">समाप्ति तिथि</label>
+        <input type="date" name = "endDate" class="form-control" required="" id="endDate" {% if endDate %} value="{{endDate}}" {% endif %}>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="linesList">लाइंस का नाम चुनें:</label>
+            <select multiple class="chosen-select" name="linesList" required="" id="linesList" style="color:black" placeholder="Select location here..">
+                <option value="VSTPS123_EXPP">VSTPS123_EXPP</option>
+                <option value="VSTPSIV_EXPP">VSTPSIV_EXPP</option>
+                <option value="VSTPS5_EXPP">VSTPS5_EXPP</option>
+            </select>
+        </div>
+    </div>
+    <input type="submit" class = "btn btn-success" value="submit">
+</form>
+
+{% block scripts %}
+<script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'lines/index.js') }}"></script>
+<script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'lines/multiSelect.js') }}"></script>
+<script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'node_modules/plotly.js-dist/plotly.js') }}"></script>
+{% if data %}
+    {# dynamic div testing #}
+    {% set l = 0 %}
+    {% for linesList,err,divItr in div_info %}
+        <div class="container mb-5">
+            <br>
+            <span id= "dnhBlockNoSpan"class="text-dark rightSpan">त्रुटि प्रतिशत:{{err}}</span>
+        </div>
+        <div id={{linesList}}></div>
+        {% if divItr%2==0 %}
+            <div class="pagebrk"></div>
+        {% endif %}
+    {% endfor %}
+    {% set dfData = data %}
+    <script>
+        var linesName = {{ linesName|safe }};
+        var linesDisplayList = {{ linesDisplayList|safe }};
+        var dfData_gGlob = {{ dfData|safe }};
+        window.onload = function() {
+            loadPlotData();
+        }
+    </script>
+{% endif %}
+    <style>
+        thead input {
+            padding: 2px;
+            box-sizing: border-box;
+            font-size: small;
+            width: 100%
+        }
+        .rightSpan{
+             float:right;
+             font-size: 22px;
+         }
+         @page{
+         size:auto;
+         }
+         @media print {
+            .pagebrk {
+                clear: both;
+                page-break-after: always;
+            }
+        }
+    </style>
+
+{% endblock %}
+
+
+{% endblock %}
+
