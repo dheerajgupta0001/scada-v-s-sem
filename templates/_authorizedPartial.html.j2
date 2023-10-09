@@ -44,6 +44,18 @@
     </div>
 </li>
 <li class="nav-item">
+    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseLine" aria-expanded="false" aria-controls="collapseLine">
+        <span>स्काडा बनाम सेम लाइंस</span>
+    </a>
+    <div id="collapseLine" class="collapse show" aria-labelledby="headingFreq" data-parent="#accordionSidebar" style="">
+        <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item" href="{{ url_for('scadaSemLines.create') }}">स्काडा-सेम लाइंस डेटा बनाएं</a>
+        {# <a class="collapse-item" href="/scadaSemRe/create">CREATE SCADA-SEM RE DATA</a> #}
+        <a class="collapse-item" href="{{ url_for('scadaSemLines.plot') }}">प्लॉट लाइंस का ग्राफ</a>
+        </div>
+    </div>
+</li>
+<li class="nav-item">
     <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="false" aria-controls="collapseReports">
         <span>स्काडा बनाम सेम रिपोर्ट</span>
     </a>

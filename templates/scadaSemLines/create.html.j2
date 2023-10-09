@@ -1,0 +1,40 @@
+{% extends "layoutBase.html.j2" %}
+{% block title %}स्काडा सेम लाइंस डेटा बनाएँ{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<h3>स्काडा सेम लाइंस डेटा स्टोर में डेटा बनाएं</h3>
+{% from "_formhelpers.html.j2" import render_field %}
+<form method="post">
+  {# <div class="form-row"> #}
+    <div class="form-group col-md-6">
+      {{ render_field(form.startDate, class="datetimepicker") }}
+    </div>
+    <div class="form-group col-md-6">
+      {{ render_field(form.endDate, class="datetimepicker") }}
+    </div>
+  {# </div> #}
+  {# <div class="form-row">
+    <div class="form-group col-md-4">
+      {{ render_field(form.reList, class="chosen-select") }}
+    </div>
+  </div> #}
+  <p><input type="submit" value="Insert Lines Data" class="btn btn-success"/>
+</form>
+
+<br/>
+{% if data %}
+    <h3><p>स्काडा सेम लाइंस डेटा प्रविष्टि सफल!!!</p></h3>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+  <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'lines/multiSelect.js') }}"></script>
+  {# <script>
+        console.log("dfjsf")
+  </script> #}
+{% endblock%}
