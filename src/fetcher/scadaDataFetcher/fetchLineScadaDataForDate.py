@@ -33,7 +33,8 @@ def fetchLineScadaSummaryForDate( scadaLineFolderPath: str, targetDt: dt.datetim
     # read line data from excel 
     excelDf = pd.read_excel(targetFilePath, nrows=96)
 
-    excelDf = excelDf[["Timestamp", scadaCol]]
+    excelDf = excelDf[["time", scadaCol]]
+    excelDf = excelDf.rename(columns={'time': 'Timestamp'})
     excelDf['Timestamp'] = pd.to_datetime(excelDf["Timestamp"],dayfirst=True)
     excelDf['Timestamp'] = pd.to_datetime(excelDf["Timestamp"],format="%d-%m-%Y %H:%M:S")
     excelDf[scadaCol]= excelDf[[scadaCol]].div(4, axis=0)
