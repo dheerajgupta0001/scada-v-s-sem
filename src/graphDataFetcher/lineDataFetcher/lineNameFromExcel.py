@@ -8,6 +8,6 @@ def lineDisplayNameFromExcel(stateName: str):
         Name of the state for graph plotting!!! pd.read_excel(filePath, sheet_name= 'Line')
     """
     lineDataDf = getLinesMappings()
-    lineDisplayName = lineDataDf.loc[lineDataDf['Lines'] == stateName, 'Display_Name'].iloc[0]
+    lineDisplayName = lineDataDf.loc[lineDataDf['Lines'] == stateName, 'SCADA'].iloc[0]
     
     return lineDisplayName
