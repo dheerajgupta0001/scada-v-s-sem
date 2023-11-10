@@ -60,10 +60,13 @@ def create():
         for lineName in linesList:
             isRawCreationSuccess = False
             # get the scada sem data of 1st re name for GRAPH PLOTTING
-            scadaSemLineRecord = fetchScadaSemLineRawData(scadaLineFolderPath, semLineFolderPath,
-                                                          startDate, endDate,  lineName)
-            isRawCreationSuccess = scadaSemLinesRepo.pushScadaSemLinesRecord(
-                scadaSemLineRecord)
+            try:
+                scadaSemLineRecord = fetchScadaSemLineRawData(scadaLineFolderPath, semLineFolderPath,
+                                                            startDate, endDate,  lineName)
+                isRawCreationSuccess = scadaSemLinesRepo.pushScadaSemLinesRecord(
+                    scadaSemLineRecord)
+            except:
+                print("An exception occured")
             if isRawCreationSuccess:
                 # print("स्काडा सेम लाइंस डेटा प्रविष्टि {} के लिए सफल".format(linesName))
                 print("{} Line Done".format(lineName))
