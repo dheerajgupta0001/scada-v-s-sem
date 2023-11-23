@@ -70,7 +70,7 @@ class PlotScadaSemReData():
         
         if meterDataSum != 0:
             # errorPerc = round((errorSum/meterDataSum)*100, 2)
-            errorPerc = calculateErrorPerc(data, 2)
+            errorPerc = calculateErrorPerc(data, 2, 'SCADA_DATA_RE', 'SEM_DATA_RE')
         else: 
             errorPerc =0
         

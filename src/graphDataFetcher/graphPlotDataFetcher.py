@@ -69,7 +69,7 @@ class PlotScadaSemData():
         errorSum = errorDiffList.sum() 
         if meterDataSum != 0:
             # errorPerc = round((errorSum/meterDataSum)*100, 2)
-            errorPerc = calculateErrorPerc(data, 5)
+            errorPerc = calculateErrorPerc(data, 5, 'SCADA_DATA', 'SEM_DATA')
         else: 
             errorPerc =0
         # convert dataframe to list of dictionaries

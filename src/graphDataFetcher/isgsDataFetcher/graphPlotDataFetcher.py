@@ -70,7 +70,7 @@ class PlotScadaSemIsgsData():
 
         if meterDataSum != 0:
             # errorPerc = round((errorSum/meterDataSum)*100, 2)
-            errorPerc = calculateErrorPerc(data, 5)
+            errorPerc = calculateErrorPerc(data, 5, 'SCADA_DATA_ISGS', 'SEM_DATA_ISGS')
         else: 
             errorPerc =0
         
