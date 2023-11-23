@@ -4,6 +4,7 @@ import datetime as dt
 import os
 import pandas as pd
 from flask import Flask, request, jsonify, render_template
+from src.helpers.calculateError import calculateErrorPerc
 
 class ScadaSemLineDataRepo():
     """Repository class for line availability summary data
@@ -68,7 +69,8 @@ class ScadaSemLineDataRepo():
         errorSum = errorDiffList.sum() 
 
         if meterDataSum != 0:
-            errorPerc = round((errorSum/meterDataSum)*100, 2)
+            # errorPerc = round((errorSum/meterDataSum)*100, 2)
+            errorPerc = calculateErrorPerc(data, 5)
         else: 
             errorPerc =0
         

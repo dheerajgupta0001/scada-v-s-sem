@@ -4,6 +4,7 @@ import datetime as dt
 import os
 import pandas as pd
 from flask import Flask, request, jsonify, render_template
+from src.helpers.calculateError import calculateErrorPerc
 
 class PlotScadaSemReData():
     """Repository class for pmu availability summary data
@@ -68,7 +69,8 @@ class PlotScadaSemReData():
         errorSum = errorDiffList.sum() 
         
         if meterDataSum != 0:
-            errorPerc = round((errorSum/meterDataSum)*100, 2)
+            # errorPerc = round((errorSum/meterDataSum)*100, 2)
+            errorPerc = calculateErrorPerc(data, 2)
         else: 
             errorPerc =0
         
