@@ -2,6 +2,7 @@ import datetime as dt
 import pandas as pd
 from src.fetcher.semDataFetcher.testFetchReSemDataForDate import fetchReSemSummaryForDate
 from src.fetcher.scadaDataFetcher.fetchReScadaDataForDate import fetchReScadaSummaryForDate
+import logging
 
 def fetchScadaSemReRawData(scadaReFolderPath: str, semReFolderPath: str, startDate: dt.datetime, endDate: dt.datetime, reName: str) -> bool:
     """fetches the scada sem re availability data from excel files 
@@ -26,13 +27,19 @@ def fetchScadaSemReRawData(scadaReFolderPath: str, semReFolderPath: str, startDa
     semData = []
     scadaData = []
     times = []
+    logging.basicConfig(filename='std.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
     while currDate <= reqEndDt:
-        dailySemReData = fetchReSemSummaryForDate(semReFolderPath, currDate,  reName)
-        semData.extend(dailySemReData)
-        dailyScadReData, timeStamp = fetchReScadaSummaryForDate(scadaReFolderPath, currDate,  reName)
-        times.extend(timeStamp)
-        scadaData.extend(dailyScadReData)
-
+        try:
+            dailySemReData = fetchReSemSummaryForDate(semReFolderPath, currDate,  reName)
+            semData.extend(dailySemReData)
+        except:
+            logging.warning(f'RE sem data fetch failed for {reName} for {currDate}')
+        try:
+            dailyScadReData, timeStamp = fetchReScadaSummaryForDate(scadaReFolderPath, currDate,  reName)
+            times.extend(timeStamp)
+            scadaData.extend(dailyScadReData)
+        except:
+            logging.warning(f'RE scada data fetch failed for {reName} for {currDate}')
         currDate += dt.timedelta(days=1)
     # dataframe for pushing data to DB
     dataDF = pd.DataFrame()

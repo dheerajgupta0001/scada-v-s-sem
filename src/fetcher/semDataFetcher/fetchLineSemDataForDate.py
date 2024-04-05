@@ -2,8 +2,9 @@ import datetime as dt
 from typing import List
 import os
 import pandas as pd
-
+import pathlib
 from src.config.fileMappings import getLinesMappings
+from urllib.parse import urljoin
 
 
 def fetchLineSemSummaryForDate(semLineFolderPath: str, targetDt: dt.datetime, lineName: str) -> List:
@@ -23,17 +24,10 @@ def fetchLineSemSummaryForDate(semLineFolderPath: str, targetDt: dt.datetime, li
     # file extension (IN6/IN7/....csv type format ) name from isgs Name
     fileNameExtension = linesConfig.loc[linesConfig['Lines']== lineName, 'file'].iloc[0]
     targetFilename = '{0}.{1}.csv'.format(fileDateStr, fileNameExtension)
-    targetFilePath = os.path.join(semLineFolderPath, targetFilename)
-
-    # check if csv file is present
-    if not os.path.isfile(targetFilePath):
-        print("Line Sem file for date {0} is not present for state {1}".format(
-            targetDt, lineName))
-        return []
-
+    # targetFilePath = os.path.join(semLineFolderPath, targetFilename)
+    targetFilePath = urljoin(semLineFolderPath, targetFilename)
+    # http://10.2.100.55:8088/SCADA/Reports/ScadaSemAutomation/
     excelDf = pd.read_csv(targetFilePath, skipfooter=1, skiprows=1)
-
-    # excelDf = pd.read_excel(targetFilePath, skiprows=9, skipfooter=3, header=None)
     excelDf = excelDf[[semCol]]
     excelDf.rename(columns={semCol: 'semData'}, inplace=True)
 

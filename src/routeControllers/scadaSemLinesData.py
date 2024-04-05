@@ -40,7 +40,6 @@ class CreateScadSemLinesForm(Form):
 
 
 @scadaSemLinesPage.route('/create', methods=['GET', 'POST'])
-# @role_required('code_book_editor')
 def create():
     form = CreateScadSemLinesForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -48,31 +47,25 @@ def create():
         endDate = request.form.get('endDate')
         startDate = dt.datetime.strptime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strptime(endDate, '%Y-%m-%d')
-        # linesName = request.form.getlist('LinesList')
         # get file config
         linesConfig = getLinesMappings()
         linesList = linesConfig['Lines'].dropna()
-        # linesList = ["AC-91", "BL-91", "CG-91", "DB-91", "DC-91", "DG-91", "DW-91", "EM-91", "GA-91",
-        #             "GM-91", "JD-96", "JD-97", "JH-91", "JY-91", "KA-91", "KB-91", "KO-97", "KO-98",
-        #             "KS-91", "KW-91", "LK-91", "MB-91", "MD-96", "MD-97", "MN-91", "NS-91", "RG-91",
-        #             "RK-91", "SA-91", "SK-91", "SS-91", "TA-91", "TA-94", "TR-91", "VI-96",
-        #             "VI-97", "VI-99", "VI-V4", "VI-V5", "SO-91", "LA-91", "GD-91", "KH-91"]
         for lineName in linesList:
             isRawCreationSuccess = False
             # get the scada sem data of 1st re name for GRAPH PLOTTING
             try:
                 scadaSemLineRecord = fetchScadaSemLineRawData(scadaLineFolderPath, semLineFolderPath,
                                                             startDate, endDate,  lineName)
+                print('Length of records ',len(scadaSemLineRecord))
+
                 isRawCreationSuccess = scadaSemLinesRepo.pushScadaSemLinesRecord(
                     scadaSemLineRecord)
             except:
                 print("An exception occured")
             if isRawCreationSuccess:
-                # print("स्काडा सेम लाइंस डेटा प्रविष्टि {} के लिए सफल".format(linesName))
                 print("{} Line Done".format(lineName))
             else:
-                print("स्काडा सेम लाइंस डेटा प्रविष्टि {} के लिए असफल".format(lineName))
-        # print(errorPerc[0])
+                print("{} Line Not Done".format(lineName))
         startDate = dt.datetime.strftime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strftime(endDate, '%Y-%m-%d')
         if isRawCreationSuccess:
@@ -85,7 +78,6 @@ def create():
 
 
 @scadaSemLinesPage.route('/plot', methods=['GET', 'POST'])
-# @role_required('code_book_editor')
 def plot():
     # in case of post request, fetch
     if request.method == 'POST':
@@ -103,8 +95,6 @@ def plot():
             for index, row in linesConfig.iterrows():
                 if currStation == row['Display_Name']:
                     linesName.append(linesConfig['Lines'][index])
-
-        # print(linesName)
 
         # testing of multiple div dynamically
         dfData_g = []

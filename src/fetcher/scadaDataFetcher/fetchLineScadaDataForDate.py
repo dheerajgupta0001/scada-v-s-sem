@@ -2,6 +2,7 @@ import datetime as dt
 from typing import List
 import os
 import pandas as pd
+from urllib.parse import urljoin
 
 from src.config.fileMappings import getLinesMappings
 
@@ -22,13 +23,14 @@ def fetchLineScadaSummaryForDate( scadaLineFolderPath: str, targetDt: dt.datetim
     # sample excel filename SCADA_SEM_01092023
     fileDateStr = dt.datetime.strftime(targetDt, '%d%m%Y')
     targetFilename = 'SCADA_SEM_{0}.xlsx'.format(fileDateStr)
-    targetFilePath = os.path.join( scadaLineFolderPath, targetFilename)
+    targetFilePath = urljoin(scadaLineFolderPath, targetFilename)
+    # targetFilePath = os.path.join( scadaLineFolderPath, targetFilename)
     # print(targetFilePath)
 
     # check if csv file is present
-    if not os.path.isfile(targetFilePath):
-        print("Lines Scada csv file for date {0} is not present".format(targetDt))
-        return []
+    # if not os.path.isfile(targetFilePath):
+    #     print("Lines Scada csv file for date {0} is not present".format(targetDt))
+    #     return []
 
     # read line data from excel 
     excelDf = pd.read_excel(targetFilePath, nrows=96)

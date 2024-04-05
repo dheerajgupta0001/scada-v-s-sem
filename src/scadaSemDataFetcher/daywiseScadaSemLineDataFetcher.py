@@ -2,6 +2,7 @@ import datetime as dt
 import pandas as pd
 from src.fetcher.semDataFetcher.fetchLineSemDataForDate import fetchLineSemSummaryForDate
 from src.fetcher.scadaDataFetcher.fetchLineScadaDataForDate import fetchLineScadaSummaryForDate
+import logging
 
 def fetchScadaSemLineRawData(scadaLineFolderPath: str, semLineFolderPath: str, startDate: dt.datetime, endDate: dt.datetime, lineName: str) -> bool:
     """fetches the scada sem Line availability data from excel files 
@@ -26,13 +27,19 @@ def fetchScadaSemLineRawData(scadaLineFolderPath: str, semLineFolderPath: str, s
     semData = []
     scadaData = []
     times = []
+    logging.basicConfig(filename='std.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
     while currDate <= reqEndDt:
-        dailySemReData = fetchLineSemSummaryForDate(semLineFolderPath, currDate,  lineName)
-        semData.extend(dailySemReData)
-        dailyScadReData, timeStamp = fetchLineScadaSummaryForDate(scadaLineFolderPath, currDate,  lineName)
-        times.extend(timeStamp)
-        scadaData.extend(dailyScadReData)
-
+        try:
+            dailySemLineData = fetchLineSemSummaryForDate(semLineFolderPath, currDate,  lineName)
+            semData.extend(dailySemLineData)
+        except:
+            logging.warning(f'Line sem data fetch failed for {lineName} for {currDate}')
+        try:
+            dailyScadaLineData, timeStamp = fetchLineScadaSummaryForDate(scadaLineFolderPath, currDate,  lineName)
+            times.extend(timeStamp)
+            scadaData.extend(dailyScadaLineData)
+        except:
+            logging.warning(f'Line scada data fetch failed for {lineName} for {currDate}')
         currDate += dt.timedelta(days=1)
     # dataframe for pushing data to DB
     dataDF = pd.DataFrame()

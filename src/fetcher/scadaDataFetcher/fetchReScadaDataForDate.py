@@ -1,10 +1,9 @@
 import datetime as dt
-#from src.typeDefs.pmuAvailabilitySummary import IPmuAvailabilitySummary
 from typing import List
 import os
 import pandas as pd
-
 from src.config.fileMappings import getReMappings
+from urllib.parse import urljoin
 
 
 def fetchReScadaSummaryForDate( scadaReFolderPath: str, targetDt: dt.datetime, reName: str) -> List :
@@ -23,15 +22,15 @@ def fetchReScadaSummaryForDate( scadaReFolderPath: str, targetDt: dt.datetime, r
     # sample excel filename - PMU_availability_Report_05_08_2020.xlsx
     fileDateStr = dt.datetime.strftime(targetDt, '%d_%m_%Y')
     targetFilename = 'RE_SCADASEM_{0}.csv'.format(fileDateStr)
-    targetFilePath = os.path.join( scadaReFolderPath, targetFilename)
+    # targetFilePath = os.path.join( scadaReFolderPath, targetFilename)
+    targetFilePath = urljoin(scadaReFolderPath, targetFilename)
     # print(targetFilePath)
 
     # check if csv file is present
-    if not os.path.isfile(targetFilePath):
-        print("RE Scada csv file for date {0} is not present".format(targetDt))
-        return []
+    # if not os.path.isfile(targetFilePath):
+    #     print("RE Scada csv file for date {0} is not present".format(targetDt))
+    #     return []
 
-    # read pmu excel 
     excelDf = pd.read_csv(targetFilePath, skiprows=2, nrows=96)
     excelDf = excelDf[["Timestamp", scadaCol]]
     

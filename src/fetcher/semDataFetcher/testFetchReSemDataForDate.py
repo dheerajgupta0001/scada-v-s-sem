@@ -2,8 +2,8 @@ import datetime as dt
 from typing import List
 import os
 import pandas as pd
-
 from src.config.fileMappings import getReMappings
+from urllib.parse import urljoin
 
 
 def fetchReSemSummaryForDate(semReFolderPath: str, targetDt: dt.datetime, reName: str) -> List:
@@ -23,13 +23,14 @@ def fetchReSemSummaryForDate(semReFolderPath: str, targetDt: dt.datetime, reName
     # file extension (IN6/IN7/IN4....csv type format ) name from isgs Name
     fileNameExtension = reConfig.loc[reConfig['RE'] == reName, 'file'].iloc[0]
     targetFilename = '{0}.{1}.csv'.format(fileDateStr, fileNameExtension)
-    targetFilePath = os.path.join(semReFolderPath, targetFilename)
+    targetFilePath = urljoin(semReFolderPath, targetFilename)
+    # targetFilePath = os.path.join(semReFolderPath, targetFilename)
 
     # check if excel file is present
-    if not os.path.isfile(targetFilePath):
-        print("RE Sem file for date {0} is not present for state {1}".format(
-            targetDt, reName))
-        return []
+    # if not os.path.isfile(targetFilePath):
+    #     print("RE Sem file for date {0} is not present for state {1}".format(
+    #         targetDt, reName))
+    #     return []
 
     excelDf = pd.read_csv(targetFilePath, skipfooter=1, skiprows=1)
 

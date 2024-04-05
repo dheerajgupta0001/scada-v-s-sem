@@ -2,6 +2,8 @@ import datetime as dt
 from typing import List
 import os
 import pandas as pd
+import logging
+from urllib.parse import urljoin
 
 from src.config.fileMappings import getIsgsMappings
 
@@ -17,21 +19,34 @@ def fetchIsgsScadaSummaryForDate( scadaIsgsFolderPath: str, targetDt: dt.datetim
     """
     # get file config
     isgsConfig = getIsgsMappings()
+    logging.basicConfig(filename='isgs.log', filemode='w', 
+					format='%(asctime)s %(message)s',)
+
     # sem column name from mapping file
     scadaCol = isgsConfig.loc[isgsConfig['ISGS'] == isgsName, 'SCADA'].iloc[0]
     # sample excel filename -GEN_SCADA_SEM_05_08_2020.xlsx
     fileDateStr = dt.datetime.strftime(targetDt, '%d_%m_%Y')
     targetFilename = 'GEN_SCADA_SEM_{0}.csv'.format(fileDateStr)
-    targetFilePath = os.path.join( scadaIsgsFolderPath, targetFilename)
+    # http://10.2.100.55:8088/SCADA/Reports/GEN_SCADA_SEM/
+    # targetFilePath = os.path.join( scadaIsgsFolderPath, targetFilename)
+    targetFilePath = urljoin(scadaIsgsFolderPath, targetFilename)
     # print(targetFilePath)
 
     # check if csv file is present
+    '''
     if not os.path.isfile(targetFilePath):
+        logging.warning('ISGS scad file not present')
+        logging.warning('file path is :{0}'.format(targetFilePath))
         print("ISGS Scada csv file for date {0} is not present".format(targetDt))
         return []
-
-    # read pmu excel 
-    excelDf = pd.read_csv(targetFilePath, skiprows=2, nrows=96)
+    '''
+    # read pmu excel
+    try:
+        excelDf = pd.read_csv(targetFilePath, skiprows=2, nrows=96)
+        # logging.warning(f'ISGS scada file with path {targetFilePath} success')
+    except:
+        logging.warning(f'Unable to read ISGS scada file with path {targetFilePath}')
+        return []
     
     #  acbil addition with mcpl test starts
     if isgsName == "AC-91":

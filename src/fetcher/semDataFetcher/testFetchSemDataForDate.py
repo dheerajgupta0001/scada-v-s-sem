@@ -3,7 +3,7 @@ import datetime as dt
 from typing import List
 import os
 import pandas as pd
-
+from urllib.parse import urljoin
 
 def fetchSemSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, stateName: str) -> List :
     """fetched pmu availability summary data rows for a date from excel file
@@ -17,13 +17,14 @@ def fetchSemSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, state
     # sample excel filename - PMU_availability_Report_05_08_2020.xlsx
     fileDateStr = dt.datetime.strftime(targetDt, '%d%m%y')
     targetFilename = '{0}.DR3.csv'.format(fileDateStr, stateName)
-    targetFilePath = os.path.join(scadaSemFolderPath, targetFilename)
+    targetFilePath = urljoin(scadaSemFolderPath, targetFilename)
+    # targetFilePath = os.path.join(scadaSemFolderPath, targetFilename)
     # print(targetFilePath)
 
     # check if excel file is present
-    if not os.path.isfile(targetFilePath):
-        print("Sem file for date {0} is not present for state {1}".format(targetDt, stateName))
-        return [] 
+    # if not os.path.isfile(targetFilePath):
+    #     print("Sem file for date {0} is not present for state {1}".format(targetDt, stateName))
+    #     return [] 
 
     excelDf = pd.read_csv(targetFilePath, skipfooter= 1, skiprows= 1)
     if stateName == "GO1":

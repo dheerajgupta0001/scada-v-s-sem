@@ -3,7 +3,8 @@ import datetime as dt
 from typing import List
 import os
 import pandas as pd
-
+from urllib.parse import urljoin
+import logging
 
 def fetchScadaSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, stateName: str) -> List :
     """fetched pmu availability summary data rows for a date from excel file
@@ -15,15 +16,18 @@ def fetchScadaSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, sta
         List[IPmuAvailabilitySummary]: list of pmu availability records fetched from the excel data
     """
     # sample excel filename - PMU_availability_Report_05_08_2020.xlsx
+    logging.basicConfig(filename='std.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
     fileDateStr = dt.datetime.strftime(targetDt, '%d_%m_%Y')
     targetFilename = 'ONEMINREP_New_{0}.csv'.format(fileDateStr)
-    targetFilePath = os.path.join(scadaSemFolderPath, targetFilename)
+    targetFilePath = urljoin(scadaSemFolderPath, targetFilename)
+    logging.warning(f'State scada path {targetFilePath}')
+    # targetFilePath = os.path.join(scadaSemFolderPath, targetFilename)
     # print(targetFilePath)
 
     # check if csv file is present
-    if not os.path.isfile(targetFilePath):
-        print("Scada Excel file for date {0} is not present".format(targetDt))
-        return []
+    # if not os.path.isfile(targetFilePath):
+    #     print("Scada Excel file for date {0} is not present".format(targetDt))
+    #     return []
 
     # read pmu excel 
     excelDf = pd.read_csv(targetFilePath, skiprows=2, skipfooter=7, engine='python')
